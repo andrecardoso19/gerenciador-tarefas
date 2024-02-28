@@ -46,7 +46,8 @@ public class SecurityConfiguration {
                            .requestMatchers(HttpMethod.GET, "/teste-api").permitAll()
                            .requestMatchers(HttpMethod.GET, "/teste-api-bem-vindo").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
                            .requestMatchers(HttpMethod.GET, "/usuarios").hasAnyAuthority(PermissaoEnum.USUARIO.toString())
-                           .requestMatchers(HttpMethod.POST, "/usuarios").hasAnyAuthority(PermissaoEnum.USUARIO.toString())
+                           .requestMatchers(HttpMethod.POST, "/usuarios").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
+                           .requestMatchers(HttpMethod.POST, "/gerenciador-tarefas").hasAnyAuthority(PermissaoEnum.ADMINISTRADOR.toString())
                            .anyRequest()
                            .authenticated();
                 });

@@ -16,9 +16,17 @@ import java.util.List;
 // Usuario é a entidade e Long tipo do ID
 // inteface can't be instantiated, multiple inheritance, dont have constructor, only abstract methods,
 // all methods and var public.
+
 // final: nao pode atribuir outros valores
 // static: valor igual para todas as instancias, pertence a classe e nao objeto.
+
 // Controller -> Service -> Repository
+
+// Serializable transforma o objeto em bits para salvar na memoria
+// int nao tem null, Integer possui Null
+
+// extends: inherits properties and methods
+// implements: protocolo, um set de metodos
 @SpringBootApplication
 public class GerenciadorTarefasApplication implements CommandLineRunner {
 
