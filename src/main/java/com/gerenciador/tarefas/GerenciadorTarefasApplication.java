@@ -12,6 +12,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// Usuario é a entidade e Long tipo do ID
+// inteface can't be instantiated, multiple inheritance, dont have constructor, only abstract methods,
+// all methods and var public.
+// final: nao pode atribuir outros valores
+// static: valor igual para todas as instancias, pertence a classe e nao objeto.
+// Controller -> Service -> Repository
 @SpringBootApplication
 public class GerenciadorTarefasApplication implements CommandLineRunner {
 
