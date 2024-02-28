@@ -21,6 +21,7 @@ public class UsuarioAutenticadoService implements UserDetailsService {
     @Autowired
     private IUsuarioRepository iUsuarioRepository;
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Usuario usuario = iUsuarioRepository.findByUsername(username)

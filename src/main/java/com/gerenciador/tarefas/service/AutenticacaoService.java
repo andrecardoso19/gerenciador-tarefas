@@ -57,7 +57,7 @@ public class AutenticacaoService {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-                return new UsernamePasswordAuthenticationToken(user, null, null);
+                return new UsernamePasswordAuthenticationToken(user, null, permissoes);
             } else {
                 throw  new RuntimeException("Autenticação falhou");
             }

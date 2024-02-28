@@ -19,13 +19,13 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<String> salvarUsuario(@RequestBody Usuario usuario) {
         Usuario usuarioSalvo = usuarioService.salvarUsuario(usuario);
-        return new ResponseEntity<>("Novo usuário criado" + usuarioSalvo.getUsername(), HttpStatus.CREATED);
+        return new ResponseEntity<>("Novo usuário criado " + usuarioSalvo.getUsername(), HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity<String> atualizarUsuario(@RequestBody Usuario usuario) {
         Usuario usuarioSalvo = usuarioService.salvarUsuario(usuario);
-        return new ResponseEntity<>("Usuário atualizado" + usuarioSalvo.getUsername(), HttpStatus.CREATED);
+        return new ResponseEntity<>("Usuário atualizado " + usuarioSalvo.getUsername(), HttpStatus.OK);
     }
 
     @GetMapping

@@ -31,11 +31,11 @@ public class LoginFiltro extends AbstractAuthenticationProcessingFilter {
         String collect = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
         UsuarioAutenticado usuarioAutenticado = new ObjectMapper().readValue(collect, UsuarioAutenticado.class);
 
-        return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(
+        return getAuthenticationManager()
+                .authenticate(new UsernamePasswordAuthenticationToken(
                 usuarioAutenticado.getUsername(),
                 usuarioAutenticado.getPassword(),
-                Collections.emptyList()
-        ));
+                Collections.emptyList()));
     }
 
     @Override

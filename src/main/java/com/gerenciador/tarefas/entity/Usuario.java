@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name ="usuarios")
+@Table(name = "usuarios")
 @Data
 @Getter
 @Setter

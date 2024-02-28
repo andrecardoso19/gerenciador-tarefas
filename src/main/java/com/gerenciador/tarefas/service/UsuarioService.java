@@ -23,12 +23,24 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     public Usuario salvarUsuario(Usuario usuario) {
+        usuario.setRoles(usuario.getRoles()
+                .stream()
+                .map(role -> iRoleRepository.findByNome(role.getNome()))
+                .toList());
+
+
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return this.iUsuarioRepository.save(usuario);
 
     }
 
     public Usuario atualizarUsuario(Usuario usuario) {
+
+        usuario.setRoles(usuario.getRoles()
+                .stream()
+                .map(role -> iRoleRepository.findByNome(role.getNome()))
+                .toList());
+
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return this.iUsuarioRepository.save(usuario);
 

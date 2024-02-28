@@ -11,5 +11,5 @@ import java.util.Optional;
 @Repository
 public interface IRoleRepository extends JpaRepository<Role, Long> {
 
-//    Role findByname(PermissaoEnum nome);
+    Role findByNome(PermissaoEnum nome);
 }
