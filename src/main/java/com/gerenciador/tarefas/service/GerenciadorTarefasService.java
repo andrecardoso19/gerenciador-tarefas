@@ -1,6 +1,9 @@
 package com.gerenciador.tarefas.service;
 
 import com.gerenciador.tarefas.entity.Tarefa;
+import com.gerenciador.tarefas.excecoes.NaoPermitidoAlterarStatusException;
+import com.gerenciador.tarefas.excecoes.NaoPermitirExcluirException;
+import com.gerenciador.tarefas.excecoes.TarefaExistenteException;
 import com.gerenciador.tarefas.repository.GerenciadorTarefasRepository;
 import com.gerenciador.tarefas.request.AtualizarTarefaRequest;
 import com.gerenciador.tarefas.request.CadastrarTarefaRequest;
@@ -21,6 +24,12 @@ public class GerenciadorTarefasService {
     private UsuarioService usuarioService;
 
     public Tarefa salvarTarefa(CadastrarTarefaRequest request) {
+
+        Tarefa tarefaValidacao = gerenciadorTarefasRepository.findByTituloOrDescricao(request.getTitulo(), request.getDescricao());
+
+        if (tarefaValidacao != null) {
+            throw new TarefaExistenteException("Já existe uma tarefa criada com mesmo título ou descrição");
+        }
 
         Tarefa tarefa = Tarefa.builder()
                 .quantidadeHorasEstimadas(request.getQuantidadeHorasEstimadas())
@@ -45,6 +54,18 @@ public class GerenciadorTarefasService {
 
         Tarefa tarefa = this.gerenciadorTarefasRepository.findById(id).get();
 
+        if (tarefa.getStatus().equals(TarefaStatusEnum.FINALIZADA)) {
+            throw  new NaoPermitidoAlterarStatusException("Não permitido mover tarefa que está FINALIZADA");
+        }
+
+        if (tarefa.getStatus().equals(TarefaStatusEnum.CRIADA) && request.getStatus().equals(TarefaStatusEnum.FINALIZADA)) {
+            throw  new NaoPermitidoAlterarStatusException("Não permitido mover tarefa para finalizada se estiver com status CRIADA");
+        }
+
+        if (tarefa.getStatus().equals(TarefaStatusEnum.BLOQUEADA) && request.getStatus().equals(TarefaStatusEnum.FINALIZADA)) {
+            throw  new NaoPermitidoAlterarStatusException("Não permitido mover tarefa para finalizada se estiver com status BLOQUEADA");
+        }
+
         tarefa.setQuantidadeHorasEstimadas(request.getQuantidadeHorasEstimadas());
         tarefa.setStatus(request.getStatus());
         tarefa.setTitulo(request.getTitulo());
@@ -58,6 +79,13 @@ public class GerenciadorTarefasService {
     }
 
     public void excluirTarefa(Long id) {
+
+        Tarefa tarefa = this.gerenciadorTarefasRepository.findById(id).get();
+
+        if (!TarefaStatusEnum.CRIADA.equals(tarefa.getStatus())) {
+            throw new NaoPermitirExcluirException();
+        }
+
         this.gerenciadorTarefasRepository.deleteById(id);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GerenciadorTarefasRepository extends JpaRepository<Tarefa, Long> {
 
+    Tarefa findByTituloOrDescricao(String titulo, String descricao);
     Page<Tarefa> findByTituloContaining(String titulo, Pageable pageable);
     Page<Tarefa> findAll(Pageable pageable);
 }
